@@ -2,9 +2,11 @@ from contextlib import contextmanager
 from typing import Generator, Optional
 
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi import Response
 from fastapi.responses import JSONResponse
 
 from src.event_tracker.db import init_db, get_conn
+from src.event_tracker import csv_export
 from src.event_tracker.schemas import EventCreate, EventOut
 from src.event_tracker import crud
 
@@ -94,3 +96,30 @@ def list_events(
         "offset": offset,
         "items": items
     }
+
+@app.get("/events/export")
+def export_events_csv(
+    start: Optional[str] = None,
+    end: Optional[str] = None,
+    label: Optional[str] = None,
+    min_x: Optional[float] = None,
+    max_x: Optional[float] = None,
+    min_y: Optional[float] = None,
+    max_y: Optional[float] = None,
+    conn: sqlite3.Connection = Depends(get_db)
+):
+    """Export events as CSV with optional filtering"""
+    items = crud.list_events(
+        conn,
+        start=start,
+        end=end,
+        label=label,
+        min_x=min_x,
+        max_x=max_x,
+        min_y=min_y,
+        max_y=max_y,
+        limit=999999,
+        offset=0
+    )
+    csv_content = csv_export.events_to_csv(items)
+    return Response(content=csv_content, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=events.csv"})
