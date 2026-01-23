@@ -27,10 +27,9 @@ def get_event(conn: sqlite3.Connection, event_id: int) -> Optional[dict]:
     cursor = conn.cursor()
     cursor.execute(
         "SELECT * FROM events WHERE id = ?",
-        (event_id,)
-    conn.commit()
-    return cursor.rowcount > 0
-    )
+        (event_id,))
+    row = cursor.fetchone()
+    return dict(row) if row else None
 
 def delete_event(conn: sqlite3.Connection, event_id: int) -> bool:
     """Delete an event by ID. Returns True if deleted, False if not found."""
