@@ -38,6 +38,33 @@ def create_event(event: EventCreate, conn: sqlite3.Connection = Depends(get_db))
     event_dict = crud.create_event(conn, event)
     return event_dict
 
+@app.get("/events/export")
+def export_events_csv(
+    start: Optional[str] = None,
+    end: Optional[str] = None,
+    label: Optional[str] = None,
+    min_x: Optional[float] = None,
+    max_x: Optional[float] = None,
+    min_y: Optional[float] = None,
+    max_y: Optional[float] = None,
+    conn: sqlite3.Connection = Depends(get_db)
+):
+    """Export events as CSV with optional filtering"""
+    items = crud.list_events(
+        conn,
+        start=start,
+        end=end,
+        label=label,
+        min_x=min_x,
+        max_x=max_x,
+        min_y=min_y,
+        max_y=max_y,
+        limit=999999,
+        offset=0
+    )
+    csv_content = csv_export.events_to_csv(items)
+    return Response(content=csv_content, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=events.csv"})
+
 @app.get("/events/{event_id}", response_model=EventOut)
 def get_event(event_id: int, conn: sqlite3.Connection = Depends(get_db)):
     """Get an event by ID"""
@@ -96,30 +123,3 @@ def list_events(
         "offset": offset,
         "items": items
     }
-
-@app.get("/events/export")
-def export_events_csv(
-    start: Optional[str] = None,
-    end: Optional[str] = None,
-    label: Optional[str] = None,
-    min_x: Optional[float] = None,
-    max_x: Optional[float] = None,
-    min_y: Optional[float] = None,
-    max_y: Optional[float] = None,
-    conn: sqlite3.Connection = Depends(get_db)
-):
-    """Export events as CSV with optional filtering"""
-    items = crud.list_events(
-        conn,
-        start=start,
-        end=end,
-        label=label,
-        min_x=min_x,
-        max_x=max_x,
-        min_y=min_y,
-        max_y=max_y,
-        limit=999999,
-        offset=0
-    )
-    csv_content = csv_export.events_to_csv(items)
-    return Response(content=csv_content, media_type="text/csv", headers={"Content-Disposition": "attachment; filename=events.csv"})
