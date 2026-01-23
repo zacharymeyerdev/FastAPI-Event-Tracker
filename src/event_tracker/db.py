@@ -18,7 +18,7 @@ def get_conn() -> sqlite3.Connection:
 def init_db() -> None:
     """Initialize database schema if not already created"""
     conn = get_conn()
-    cursor = conn.cursor
+    cursor = conn.cursor()
 
     cursor.execute(
         """
