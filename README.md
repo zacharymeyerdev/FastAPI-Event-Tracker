@@ -6,28 +6,29 @@ A simple REST API for recording and querying timestamped events with filtering a
 
 1. Create a virtual environment:
 
-    '''bash
+    ```
     python -m venv venv
     .venv\Scripts\activate  # On Windows
     source venv/bin/activate  # On macOS/Linux
     pip install fastapi uvicorn pydantic
-    '''
+    ```
 
 2. Run the server at 'http://127.0.0.1:8000':
 
-    '''bash
+    ```
     uvicorn src.event_tracker.main:app --reload
-    '''
+    ```
 
 ## Running Tests
 
-    '''bash
+    ```
     pip install pytest httpx
     pytest -q
-    '''
+    ```
 
 ## Project Structure
-'''bash
+
+```
 FastAPI-Event-Tracker/
 ├── src/
 │   └── event_tracker/
@@ -52,28 +53,28 @@ FastAPI-Event-Tracker/
 ├── LICENSE                      # License file
 ├── events.db                    # SQLite database
 └── .venv/                       # Virtual environment
-'''
+```
     
 ## API Usage
 
 ISO Format: '2026-01-21T12:00:00'
 
 **List events with filters:**
-    '''bash
+    ```
     GET /events?label=noted&start=2026-01-01T00:00:00&limit=10&offset=0
-    '''
+    ```
 
 **Get one event:**
-    '''bash
+    ```
     GET /events/1
-    '''
+    ```
 
 **Delete an event:**
-    '''bash
+    ```
     DELETE /events/1
-    '''
+    ```
 
 **Export as CSV:**
-    '''bash
+    ```
     GET /events/export?label=note
-    '''
+    ```
