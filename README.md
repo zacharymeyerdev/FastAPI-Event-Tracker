@@ -21,10 +21,10 @@ A simple REST API for recording and querying timestamped events with filtering a
 
 ## Running Tests
 
-    ```
+
     pip install pytest httpx
     pytest -q
-    ```
+
 
 ## Project Structure
 
