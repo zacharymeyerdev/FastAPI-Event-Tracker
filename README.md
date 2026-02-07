@@ -27,7 +27,7 @@ A simple REST API for recording and querying timestamped events with filtering a
     '''
 
 ## Project Structure
-
+'''
 FastAPI-Event-Tracker/
 ├── src/
 │   └── event_tracker/
@@ -52,6 +52,7 @@ FastAPI-Event-Tracker/
 ├── LICENSE                      # License file
 ├── events.db                    # SQLite database
 └── .venv/                       # Virtual environment
+'''
     
 ## API Usage
 
