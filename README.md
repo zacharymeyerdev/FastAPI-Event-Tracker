@@ -27,7 +27,7 @@ A simple REST API for recording and querying timestamped events with filtering a
     '''
 
 ## Project Structure
-'''
+'''bash
 FastAPI-Event-Tracker/
 ├── src/
 │   └── event_tracker/
