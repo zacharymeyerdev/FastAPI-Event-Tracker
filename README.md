@@ -29,34 +29,29 @@ A simple REST API for recording and querying timestamped events with filtering a
 ## Project Structure
 
 FastAPI-Event-Tracker/
-│
 ├── src/
 │   └── event_tracker/
-│       ├── __init__.py
-│       ├── main.py                 # FastAPI app and HTTP routes
-│       ├── schemas.py              # Pydantic models for validation
-│       ├── db.py                   # SQLite connection and initialization
-│       ├── crud.py                 # Database query functions
-│       └── csv_export.py           # CSV conversion logic
-│
+│       ├── __init__.py          # Package marker
+│       ├── main.py              # FastAPI app and HTTP routes
+│       ├── schemas.py           # Pydantic models for validation
+│       ├── db.py                # SQLite connection and initialization
+│       ├── crud.py              # Database query functions
+│       └── csv_export.py        # CSV conversion logic
 ├── tests/
 │   ├── __init__.py
-│   ├── test_health.py              # Health check endpoint tests
-│   ├── test_events_crud.py         # Create/read/delete tests
-│   ├── test_events_filters.py      # Filtering and pagination tests
-│   └── test_events_export.py       # CSV export tests
-│
+│   ├── test_health.py           # Health check endpoint tests
+│   ├── test_events_crud.py      # Create/read/delete tests
+│   ├── test_events_filters.py   # Filtering and pagination tests
+│   └── test_events_export.py    # CSV export tests
 ├── .github/
 │   └── workflows/
-│       └── ci.yml                  # GitHub Actions CI/CD pipeline
-│
-├── .gitignore                      # Git ignore rules
-├── pyproject.toml                  # Project metadata and dependencies
-├── README.md                       # Documentation
-├── LICENSE                         # License file
-│
-└── events.db                       # SQLite database
-    .venv/                          # Virtual environment
+│       └── ci.yml               # GitHub Actions CI/CD pipeline
+├── .gitignore                   # Git ignore rules
+├── pyproject.toml               # Project metadata and dependencies
+├── README.md                    # Documentation
+├── LICENSE                      # License file
+├── events.db                    # SQLite database
+└── .venv/                       # Virtual environment
     
 ## API Usage
 
