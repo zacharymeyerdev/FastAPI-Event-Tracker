@@ -11,5 +11,5 @@ class CanonicalEvent:
     source: Optional[str] = None
 
 EXPECTED_COLUMNS = {"ts", "label", "value", "source"}
-ALLOWED_LABELS = {"crack", "rust", "note"}
+ALLOWED_LABELS = {"click", "signup", "page_view"}
 VALUE_RANGE = (0.0, 1_000_000.0)

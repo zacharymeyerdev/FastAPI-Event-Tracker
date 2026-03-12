@@ -39,10 +39,10 @@ Example command:
 
 ```bash
 python -m src.event_tracker.etl.cli \
-	--input-csv data/input/events.csv \
+	--input-csv data/input/events_sample.csv \
 	--db-path data/output/etl_events.db \
 	--report-path data/output/validation_report.json \
-	--multipliers-json "{\"damage\": 1.10, \"corrosion\": 0.95}"
+	--multipliers-json "{\"engagement\": 1.10, \"conversion\": 0.95}"
 ```
 
 ## 4. Canonical Schema
@@ -57,7 +57,7 @@ Expected raw input columns:
 - `ts`, `label`, `value`, `source`
 
 Allowed labels (reference set):
-- `crack`, `rust`, `note`
+- `click`, `signup`, `page_view`
 
 Numeric range constraints:
 - `value` must be within `[0.0, 1_000_000.0]`.
@@ -78,9 +78,9 @@ Source columns are transformed as follows:
 - `ts`: parsed from ISO-like string into datetime.
 - `label`: normalized with trim + lowercase.
 - `category`: mapped by label:
-	- `crack` -> `damage`
-	- `rust` -> `corrosion`
-	- `note` -> `observation`
+	- `click` -> `engagement`
+	- `signup` -> `conversion`
+	- `page_view` -> `navigation`
 	- Unknown label -> `other`
 - `value`: cast to float.
 - `source`: carried forward as optional string.

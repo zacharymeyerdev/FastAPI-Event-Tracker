@@ -1,7 +1,7 @@
 from datetime import datetime
 from .models import CanonicalEvent
 
-LABEL_TO_CATEGORY = {"crack": "damage", "rust": "corrosion", "note": "observation"}
+LABEL_TO_CATEGORY = {"click": "engagement", "signup": "conversion", "page_view": "navigation"}
 
 def transform_rows(rows: list[dict]) -> list[CanonicalEvent]:
     out = []

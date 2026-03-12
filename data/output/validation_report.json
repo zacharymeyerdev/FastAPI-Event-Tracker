@@ -1,0 +1,12 @@
+{
+  "missing_values": [],
+  "duplicates": [],
+  "schema_mismatches": [],
+  "out_of_range": [],
+  "summary": {
+    "missing_values": 0,
+    "duplicates": 0,
+    "schema_mismatches": 0,
+    "out_of_range": 0
+  }
+}

@@ -30,31 +30,31 @@ def test_filter__by_label(test_app):
         "/events",
         json={
             "ts": "2026-01-21T10:00:00",
-            "label": "crack",
+            "label": "click",
         },
     )
     client.post(
         "/events",
         json={
             "ts": "2026-01-22T11:00:00",
-            "label": "rust",
+            "label": "signup",
         },
     )
     client.post(
         "/events",
         json={
             "ts": "2026-01-22T12:00:00",
-            "label": "crack",
+            "label": "click",
         },
     )
 
-    # Filter by label 'note'
-    response = client.get("/events?label=crack")
+    # Filter by label 'click'
+    response = client.get("/events?label=click")
     assert response.status_code == 200
     data = response.json()
     assert data["total"] == 2
     assert len(data["items"]) == 2
-    assert all(item["label"] == "crack" for item in data["items"])
+    assert all(item["label"] == "click" for item in data["items"])
     
 def test_filter_by_time_range(test_app):
     """Test filtering events by time range"""

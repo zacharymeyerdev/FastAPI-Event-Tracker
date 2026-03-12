@@ -68,35 +68,35 @@ def test_export_csv_filtered(test_app):
         "/events",
         json={
             "ts": "2026-01-21T10:00:00",
-            "label": "crack",
+            "label": "click",
         },
     )
     client.post(
         "/events",
         json={
             "ts": "2026-01-22T11:00:00",
-            "label": "rust",
+            "label": "signup",
         },
     )
     client.post(
         "/events",
         json={
             "ts": "2026-01-22T12:00:00",
-            "label": "crack",
+            "label": "click",
         },
     )
 
-    # Export events filtered by label 'crack'
-    response = client.get("/events/export?label=crack")
+    # Export events filtered by label 'click'
+    response = client.get("/events/export?label=click")
     assert response.status_code == 200
 
     # Read CSV content
     csv_reader = csv.DictReader(io.StringIO(response.text))
     rows = list(csv_reader)
 
-    # Check that only events with label 'crack' are exported
+    # Check that only events with label 'click' are exported
     assert len(rows) == 2
-    assert all(row["label"] == "crack" for row in rows)
+    assert all(row["label"] == "click" for row in rows)
 
 def test_export_csv_empty(test_app):
     """Test that CSV export works when no events match filters"""

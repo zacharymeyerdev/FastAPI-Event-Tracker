@@ -30,7 +30,7 @@ def test_create_event(test_app):
         "/events",
         json={
             "ts": "2026-01-21T12:00:00",
-            "label": "note",
+            "label": "page_view",
             "description": "test event",
             "x": 1.5,
             "y": 2.5,
@@ -41,7 +41,7 @@ def test_create_event(test_app):
     assert response.status_code == 201
     data = response.json()
     assert data["id"] == 1
-    assert data["label"] == "note"
+    assert data["label"] == "page_view"
     assert data["description"] == "test event"
 
 def test_get_event(test_app):
@@ -53,8 +53,8 @@ def test_get_event(test_app):
         "/events",
         json={
             "ts": "2026-01-21T12:00:00",
-            "label": "crack",
-            "description": "found a crack",
+            "label": "click",
+            "description": "user clicked CTA",
         },
     )
     event_id = create_response.json()["id"]
@@ -64,7 +64,7 @@ def test_get_event(test_app):
     assert get_response.status_code == 200
     data = get_response.json()
     assert data["id"] == event_id
-    assert data["label"] == "crack"
+    assert data["label"] == "click"
 
 def test_delete_event(test_app):
     """Test deleting an event"""
@@ -75,7 +75,7 @@ def test_delete_event(test_app):
         "/events",
         json={
             "ts": "2026-01-21T12:00:00",
-            "label": "rust",
+            "label": "signup",
         },
     )
     event_id = create_response.json()["id"]

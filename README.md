@@ -35,13 +35,13 @@ uvicorn src.event_tracker.main:app --reload
 Baseline run:
 
 ```bash
-python -m src.event_tracker.etl.cli --input-csv data/input/events.csv --db-path data/output/etl_events.db --report-path data/output/validation_report.json --multipliers-json "{}"
+python -m src.event_tracker.etl.cli --input-csv data/input/events_sample.csv --db-path data/output/etl_events.db --report-path data/output/validation_report.json --multipliers-json "{}"
 ```
 
 What-if scenario run:
 
 ```bash
-python -m src.event_tracker.etl.cli --input-csv data/input/events.csv --db-path data/output/etl_events.db --report-path data/output/validation_report_scenario.json --multipliers-json "{\"damage\":1.10,\"corrosion\":0.95}"
+python -m src.event_tracker.etl.cli --input-csv data/input/events_sample.csv --db-path data/output/etl_events.db --report-path data/output/validation_report_scenario.json --multipliers-json "{\"engagement\":1.10,\"conversion\":0.95}"
 ```
 
 ## ETL Outputs

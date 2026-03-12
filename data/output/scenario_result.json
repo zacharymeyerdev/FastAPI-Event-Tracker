@@ -1,0 +1,31 @@
+{
+  "loaded_rows": 3,
+  "validation": {
+    "missing_values": 0,
+    "duplicates": 0,
+    "schema_mismatches": 0,
+    "out_of_range": 0
+  },
+  "what_if": {
+    "baseline": {
+      "total_value": 350.0,
+      "category_totals": {
+        "engagement": 100.0,
+        "conversion": 200.0,
+        "navigation": 50.0
+      },
+      "row_count": 3
+    },
+    "scenario": {
+      "total_value": 370.0,
+      "category_totals": {
+        "engagement": 120.0,
+        "conversion": 200.0,
+        "navigation": 50.0
+      },
+      "row_count": 3
+    },
+    "delta_total": 20.0,
+    "delta_pct": 5.714285714285714
+  }
+}

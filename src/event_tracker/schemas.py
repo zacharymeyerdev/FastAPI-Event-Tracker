@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 class EventCreate(BaseModel):
     """Input model for creating an event (no id)"""
     ts: datetime = Field(..., description="ISO datetime string")
-    label: str = Field(..., min_length=1, max_length=32, description="Short tag like 'crack' or 'rust' or 'note'")
+    label: str = Field(..., min_length=1, max_length=32, description="Short tag like 'click' or 'signup' or 'page_view'")
     description: Optional[str] = Field(None, max_length=500, description="Optional longer text")
     x: Optional[float] = Field(None, description="Optional X coordinate")
     y: Optional[float] = Field(None, description="Optional Y coordinate")
