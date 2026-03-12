@@ -1,80 +1,66 @@
-# FastAPI-Event-Tracker
+# FastAPI Event Tracker + ETL
 
-A simple REST API for recording and querying timestamped events with filtering and CSV export.
+Lightweight project with:
+- FastAPI endpoints for event CRUD, filtering, and CSV export
+- Modular ETL pipeline for ingest, standardization, validation, and what-if analysis
 
-## Setup
+Detailed runbook: [SOP.md](SOP.md)
 
-1. Create a virtual environment:
+## Quick Start
 
-    ```
-    python -m venv venv
-    .venv\Scripts\activate  # On Windows
-    source venv/bin/activate  # On macOS/Linux
-    pip install fastapi uvicorn pydantic
-    ```
+1. Create and activate virtual environment.
+2. Install dependencies:
 
-2. Run the server at 'http://127.0.0.1:8000':
-
-    ```
-    uvicorn src.event_tracker.main:app --reload
-    ```
-
-## Running Tests
-
-
-    pip install pytest httpx
-    pytest -q
-
-
-## Project Structure
-
+```bash
+pip install -e .[dev]
 ```
-FastAPI-Event-Tracker/
-├── src/
-│   └── event_tracker/
-│       ├── __init__.py          # Package marker
-│       ├── main.py              # FastAPI app and HTTP routes
-│       ├── schemas.py           # Pydantic models for validation
-│       ├── db.py                # SQLite connection and initialization
-│       ├── crud.py              # Database query functions
-│       └── csv_export.py        # CSV conversion logic
-├── tests/
-│   ├── __init__.py
-│   ├── test_health.py           # Health check endpoint tests
-│   ├── test_events_crud.py      # Create/read/delete tests
-│   ├── test_events_filters.py   # Filtering and pagination tests
-│   └── test_events_export.py    # CSV export tests
-├── .github/
-│   └── workflows/
-│       └── ci.yml               # GitHub Actions CI/CD pipeline
-├── .gitignore                   # Git ignore rules
-├── pyproject.toml               # Project metadata and dependencies
-├── README.md                    # Documentation
-├── LICENSE                      # License file
-├── events.db                    # SQLite database
-└── .venv/                       # Virtual environment
+
+3. Run the API:
+
+```bash
+uvicorn src.event_tracker.main:app --reload
 ```
-    
-## API Usage
 
-ISO Format: '2026-01-21T12:00:00'
+## API Endpoints
 
-**List events with filters:**
-    ```
-    GET /events?label=noted&start=2026-01-01T00:00:00&limit=10&offset=0
-    ```
+- `GET /health`
+- `POST /events`
+- `GET /events`
+- `GET /events/{event_id}`
+- `DELETE /events/{event_id}`
+- `GET /events/export`
 
-**Get one event:**
-    ```
-    GET /events/1
-    ```
+## ETL Pipeline
 
-**Delete an event:**
-    ```
-    DELETE /events/1
-    ```
+Baseline run:
 
-**Export as CSV:**
-    ```
-    GET /events/export?label=note
-    ```
+```bash
+python -m src.event_tracker.etl.cli --input-csv data/input/events.csv --db-path data/output/etl_events.db --report-path data/output/validation_report.json --multipliers-json "{}"
+```
+
+What-if scenario run:
+
+```bash
+python -m src.event_tracker.etl.cli --input-csv data/input/events.csv --db-path data/output/etl_events.db --report-path data/output/validation_report_scenario.json --multipliers-json "{\"damage\":1.10,\"corrosion\":0.95}"
+```
+
+## ETL Outputs
+
+- Clean rows in SQLite table `etl_events`
+- Validation report JSON with:
+  - `missing_values`
+  - `duplicates`
+  - `schema_mismatches`
+  - `out_of_range`
+  - summary counts
+- What-if comparison with:
+  - baseline metrics
+  - scenario metrics
+  - `delta_total`
+  - `delta_pct`
+
+## Tests
+
+```bash
+pytest -q
+```
